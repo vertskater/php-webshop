@@ -1,0 +1,20 @@
+{
+    "name": "cm/shop",
+    "description": "a small project to build a Webshop from scratch",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Cm\\Shop\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "cm"
+        }
+    ],
+    "require": {
+        "picocss/pico": "^2.0",
+      "ext-pdo": "*"
+    }
+}

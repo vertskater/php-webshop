@@ -1,0 +1,161 @@
+/*Custom CSS */
+
+/*Material icons*/
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(./fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Material Icons Outlined';
+    font-style: normal;
+    font-weight: 400;
+    src: url(./fonts/MaterialIconsOutlined-Regular.otf) format('opentype');
+}
+
+.material-icons {
+    font-family: 'Material Icons', serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+.material-icons-outlined {
+    font-family: 'Material Icons Outlined', serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+/*End Material Icons*/
+@font-face {
+    font-family: 'roboto';
+    src: local('Roboto'),
+    url("./fonts/Roboto-Regular.ttf") format("truetype"),
+    url("./fonts/Roboto-Bold.ttf") format("truetype");
+    url("./fonts/Roboto-Medium.ttf") format("truetype"),
+    url("./fonts/Roboto-Light.ttf") format("truetype");
+}
+
+:root {
+    --light-blue: #E7F2F8;
+    --dark-blue: #74BDCB;
+    --darker-blue: #658EA9;
+    --salmon: #FA8072;
+    --light-yellow: #EFE7BC;
+    --dark: #333428;
+    --light: #fff;
+    --linear-salmon-white: linear-gradient(var(--salmon), var(--light));
+}
+body {
+    color: var(--dark);
+    font-family: 'roboto', serif;
+    font-weight: lighter;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'roboto', serif;
+    font-weight: normal;
+    margin: 1rem 0;
+}
+h1 {
+    font-size: 1.5rem;
+}
+h2 {
+    font-size: 1.3rem;
+}
+h3 {
+    font-size: 1.2rem;
+}
+h4,h5,h6 {
+    font-size: 1rem;
+    font-weight: 100;
+}
+p {
+    font-size: 1rem;
+}
+
+header {
+    padding: 0 5%;
+    background-color: var(--salmon);
+    font-weight: 100;
+}
+main.container-padding {
+    padding: 1.5rem 0;
+}
+footer {
+    padding: 0 5%;
+    background-color: var(--dark);
+    color: var(--light);
+}
+a {
+    text-decoration: none;
+    color: var(--dark);
+}
+
+/*HTML Elements Styling End*/
+
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+a.add-cart {
+    display: flex;
+    border: solid 1px var(--darker-blue);
+    border-radius: 5px;
+    padding: 0.3rem;
+    color: var(--darker-blue);
+    &:hover {
+        background-color: var(--darker-blue);
+        color: var(--light);
+    }
+}
+.category {
+    font-size: 0.7rem;
+}
+a.category-link {
+   color: var(--darker-blue);
+    font-size: 0.7rem;
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.product-price {
+    color: var(--dark);
+}
+
+@media (max-width: 768px) {
+    .category {
+        font-size: 1rem;
+    }
+    a.category-link {
+        font-size: 1rem;
+    }
+    h4,h5,h6 {
+        font-size: 1.5rem;
+        font-weight: 100;
+    }
+}
+
