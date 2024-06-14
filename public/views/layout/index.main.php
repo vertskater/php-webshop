@@ -18,6 +18,7 @@
               <a href="/category.php?id=<?= \Cm\Shop\Helper\Renderer::e($link['id']) ?>"><?= Cm\Shop\Helper\Renderer::e($link['name']); ?></a>
             </li>
         <?php endforeach; ?>
+        <li><a href="/cart.php"><span class="material-icons-outlined">shopping_cart</span></a></li>
     </ul>
     </nav>
 </header>
