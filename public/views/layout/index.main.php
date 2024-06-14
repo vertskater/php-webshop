@@ -22,10 +22,35 @@
     </ul>
     </nav>
 </header>
+<?php
+    if(!empty($header_img)) {
+        include 'parts/head.main.php';
+    }
+?>
  <?php echo $content ?? 'Sorry, no content available.'?>
 </body>
-<footer class="main-footer">
-    &copy; Christoph Mitterwallner, BEd
+<footer class="main-footer grid">
+    <div>
+        &copy; Christoph Mitterwallner, BEd
+    </div>
+    <div>
+        <form>
+            <h5>Newsletter</h5>
+            <fieldset role="group">
+                <input name="email" type="email" placeholder="Enter your email" autocomplete="email" />
+                <input type="submit" value="Subscribe" />
+            </fieldset>
+        </form>
+    </div>
+    <div>
+        <ul>
+          <?php if(!empty($footer_menu)) :?>
+            <?php foreach($footer_menu as $link) : ?>
+                <li><a href="<?=ROOT_PATH . $link['src'] ?>"><?= $link['name'] ?></a></li>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </ul>
+    </div>
 </footer>
 </html>
 

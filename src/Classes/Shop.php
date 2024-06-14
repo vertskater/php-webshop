@@ -6,6 +6,7 @@ class Shop {
 	protected Database $db;
 	protected Product $products;
 	protected Category $category;
+	protected Image $img;
 
 	public function __construct(string $dsn, string $username, string $password) {
 		$this->db = new Database($dsn, $username, $password);
@@ -22,5 +23,12 @@ class Shop {
 		}
 		return $this->category;
 	}
+	public function getImages(): Image {
+		if(empty($this->img)) {
+			$this->img = new Image($this->db);
+		}
+		return $this->img;
+	}
+
 }
 

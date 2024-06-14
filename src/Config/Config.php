@@ -8,6 +8,7 @@ class Config {
 	const string DB_NAME = 'cm_shop';
 	const string DB_USERNAME = 'cm_shop';
 	const string DB_PASSWORD = '';
+	const array IMAGE_TYPES = ['header_img', 'profile_img', 'product_img'];
 
 	public function __construct() {
 		define('ROOT_PATH', dirname(__DIR__, 2));
