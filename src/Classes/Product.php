@@ -9,7 +9,7 @@ class Product {
 	}
 
 	public function fetchById(string $id): array {
-		$sql = "SELECT p.name, p.description, p.price, p.rating, p.added_at, p.details, 
+		$sql = "SELECT p.id, p.name, p.description, p.price, p.rating, p.added_at, p.details, 
        			c.name as category_name, i.filename as image, i.alt as image_alt FROM products as p
             JOIN categories as c on p.category_id = c.id    
         		LEFT JOIN images as i on p.image_id = i.id

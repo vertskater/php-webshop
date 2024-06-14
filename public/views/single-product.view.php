@@ -1,6 +1,11 @@
 
 <main class="container container-padding">
 	<h1><?=$product['name']?></h1>
+    <?php if(!empty($errors)) : ?>
+       <p>
+           <mark><?= $errors['saved'] ?? '' ?></mark>
+       </p>
+    <?php endif; ?>
 	<section class="grid">
 		<div>
 			<img src="../img/<?=$product['image'] ?>" alt="<?=$product['image_alt']?>"/>
@@ -23,11 +28,11 @@
         <hr/>
         <p class="product-info">Release date: <?= date('d M. Y', strtotime($product['added_at'])); ?></p>
          <p class="product-price txt-midnight-blue">€ <?=$product['price']?></p>
-         <fomr>
+         <form action="../product.php?id=<?=$product['id']?>" method="post">
              <label for="quantity">Quantity:</label>
              <input id="quantity" name="quantity" type="number" max="5" min="1" value="1">
              <input type="submit" value="Add to Cart"/>
-         </fomr>
+         </form>
 		</div>
 	</section>
     <section id="accordions">

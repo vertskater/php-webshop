@@ -7,6 +7,8 @@ class Shop {
 	protected Product $products;
 	protected Category $category;
 	protected Image $img;
+	protected ShoppingCart $shopping_cart;
+	protected Session $session;
 
 	public function __construct(string $dsn, string $username, string $password) {
 		$this->db = new Database($dsn, $username, $password);
@@ -29,6 +31,17 @@ class Shop {
 		}
 		return $this->img;
 	}
-
+	public function getShoppingCart(): ShoppingCart {
+		if(empty($this->shopping_cart)) {
+			$this->shopping_cart = new ShoppingCart($this->db);
+		}
+		return $this->shopping_cart;
+	}
+	public function getSession(): Session {
+		if(empty($this->session)) {
+			$this->session = new Session();
+		}
+		return $this->session;
+	}
 }
 
