@@ -2,6 +2,7 @@
 
 namespace Cm\Shop\Classes;
 
+use Cm\Shop\Classes\Exception\PDOExecuteException;
 use Cm\Shop\Config\Config;
 
 class ShoppingCart {
@@ -24,7 +25,7 @@ class ShoppingCart {
 		}
 	}
 	public function fetchCartItems(): array {
-		$sql = "SELECT c.product_id, c.quantity, c.user_id, p.name, p.price, CONCAT(u.firstname, ' ', u.lastname) as username  FROM cart_items as c
+		$sql = "SELECT c.id, c.product_id, c.quantity, c.user_id, p.name, p.price, CONCAT(u.firstname, ' ', u.lastname) as username  FROM cart_items as c
 						JOIN products as p on c.product_id = p.id
 						JOIN users as u on c.user_id = u.id";
 		return $this->db->sql_execute($sql)->fetchAll();
@@ -35,6 +36,22 @@ class ShoppingCart {
 		try {
 			return $this->db->sql_execute($sql)->fetch()['quantity'];
 		}catch (\PDOException $e) {
+			return false;
+		}
+	}
+
+	/**
+	 * Deletes cart item by table cart_item id
+	 * @param string $cart_id
+	 *
+	 * @return bool
+	 */
+	public function deleteItem(string $cart_id): bool {
+		$sql = "DELETE FROM cart_items WHERE id = :id";
+		try {
+			$this->db->sql_execute($sql, ['id' => $cart_id]);
+			return true;
+		} catch(\PDOException $e) {
 			return false;
 		}
 	}

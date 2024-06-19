@@ -6,6 +6,9 @@
         <a role="button" href="/index.php">Shop now</a>
     </section>
     <?php else: ?>
+    <error>
+        <?= $errors ?? '' ?>
+    </error>
     <table class="striped cart-price">
         <thead>
             <tr>
@@ -17,7 +20,7 @@
             </tr>
             <?php foreach ($items as $key => $item) :?>
             <tr>
-                <td><span class="material-icons">clear</span></td>
+                <td class="delete-product"><a href="../delete-cart-item.php?cart_id=<?= $item['id'] ?>"><span class="material-icons">clear</span></a></td>
                 <td><?=$key + 1 ?></td>
                 <td><?=$item['name']?></td>
                 <td><?=$item['quantity']?></td>
@@ -47,5 +50,8 @@
             </tr>
         </thead>
     </table>
+    <form class="checkout" action="#" method="post">
+        <input type="submit" value="Checkout">
+    </form>
     <?php endif; ?>
 </main>

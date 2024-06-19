@@ -221,6 +221,13 @@ a.category-link {
     }
 }
 table.cart-price {
+    .delete-product a {
+        color: var(--salmon);
+        border-radius: 50%;
+        &:hover{
+            color: var(--dark-blue);
+        }
+    }
     tr:last-child {
         td {
             background-color: var(--light);
@@ -234,6 +241,14 @@ table.cart-price {
     }
     .total-price {
         font-family: "roboto bold", serif;
+    }
+}
+.checkout {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    input[type="submit"] {
+        width: 30%;
     }
 }
 
