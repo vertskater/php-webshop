@@ -10,6 +10,7 @@ class Config {
 	const string DB_PASSWORD = '';
 	const array IMAGE_TYPES = ['header_img', 'profile_img', 'product_img'];
 	const int GUEST_USER_ID = 3;
+	const float UST = 0.2;
 
 	public function __construct() {
 		define('ROOT_PATH', dirname(__DIR__, 2));

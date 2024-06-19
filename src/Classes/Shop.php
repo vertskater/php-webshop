@@ -9,6 +9,7 @@ class Shop {
 	protected Image $img;
 	protected ShoppingCart $shopping_cart;
 	protected Session $session;
+	protected Cart $cart;
 
 	public function __construct(string $dsn, string $username, string $password) {
 		$this->db = new Database($dsn, $username, $password);
@@ -43,5 +44,6 @@ class Shop {
 		}
 		return $this->session;
 	}
+
 }
 

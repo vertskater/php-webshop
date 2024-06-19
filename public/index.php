@@ -15,6 +15,7 @@ $title = 'Webshop - Homepage';
 Renderer::render(ROOT_PATH . '/public/views/index.view.php', [
 	'title' => $title,
 	'navigation' => $navigation,
-	'products' => $products
+	'products' => $products,
+	'count' => $count
 ]);
 

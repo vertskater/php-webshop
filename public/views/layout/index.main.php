@@ -18,7 +18,12 @@
               <a href="/category.php?id=<?= \Cm\Shop\Helper\Renderer::e($link['id']) ?>"><?= Cm\Shop\Helper\Renderer::e($link['name']); ?></a>
             </li>
         <?php endforeach; ?>
-        <li><a href="/cart.php"><span class="material-icons-outlined">shopping_cart</span></a></li>
+        <li class="cart-icon">
+            <a href="/cart.php"><span class="material-icons-outlined">shopping_cart</span></a>
+            <?php if($count > 0) : ?>
+                <span class="cart-amount"><?= $count ?></span>
+            <?php endif; ?>
+        </li>
     </ul>
     </nav>
 </header>

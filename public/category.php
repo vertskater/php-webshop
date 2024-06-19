@@ -14,7 +14,8 @@ $products_by_cat = $shop->getProducts()->fetchProductsByCategory($cat_id);
 Renderer::render(ROOT_PATH . '/public/views/category.view.php', [
 	'title' => $title,
 	'navigation' => $navigation,
-	'products' => $products_by_cat
+	'products' => $products_by_cat,
+	'count' => $count
 ]);
 
 

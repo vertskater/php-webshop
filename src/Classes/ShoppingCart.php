@@ -23,4 +23,20 @@ class ShoppingCart {
 			return false;
 		}
 	}
+	public function fetchCartItems(): array {
+		$sql = "SELECT c.product_id, c.quantity, c.user_id, p.name, p.price, CONCAT(u.firstname, ' ', u.lastname) as username  FROM cart_items as c
+						JOIN products as p on c.product_id = p.id
+						JOIN users as u on c.user_id = u.id";
+		return $this->db->sql_execute($sql)->fetchAll();
+	}
+
+	public function cartItemsCount(): int|false|null {
+		$sql = "Select SUM(quantity) as quantity FROM cart_items";
+		try {
+			return $this->db->sql_execute($sql)->fetch()['quantity'];
+		}catch (\PDOException $e) {
+			return false;
+		}
+	}
+
 }
