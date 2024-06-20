@@ -11,7 +11,7 @@ class ShopHandler {
 	}
 
 	public function handleAddToCartRequest(): self {
-		if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
 			$product_id = filter_input(INPUT_GET, 'id') ?? '';
 			$quantity = filter_input(INPUT_POST, 'quantity') ?? 1;
 			$product = $this->shop->getProducts()->fetchById($product_id);
@@ -23,10 +23,8 @@ class ShopHandler {
 				$saved = $this->shop->getShoppingCart()->addToCart($product, $quantity);
 			}
 			$this->errors['saved'] = $saved ? 'Successfully moved to Shopping Cart' : 'Could not connect to Database.';
-		}
 		return $this;
 	}
-
 	public function getErrors(): ?array {
 		return $this->errors;
 	}

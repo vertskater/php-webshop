@@ -8,8 +8,10 @@ $product = $shop->getProducts()->fetchById($product_id);
 $title = 'Product - ' . $product['name'];
 $navigation = $shop->getCategories()->getNavigation();
 $errors = [];
-$errors = (new ShopHandler($shop))->handleAddToCartRequest()->getErrors();
-$count = $shop->getShoppingCart()->cartItemsCount();
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$errors = (new ShopHandler($shop))->handleAddToCartRequest()->getErrors();
+	$count = $shop->getShoppingCart()->cartItemsCount();
+}
 
 Renderer::render(ROOT_PATH . '/public/views/single-product.view.php', [
 	'title' => $title,

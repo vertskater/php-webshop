@@ -15,7 +15,7 @@
     <ul>
         <?php foreach ($navigation as $link) : ?>
             <li>
-              <a href="/category.php?id=<?= \Cm\Shop\Helper\Renderer::e($link['id']) ?>"><?= Cm\Shop\Helper\Renderer::e($link['name']); ?></a>
+              <a href="/category.php?cat_id=<?= \Cm\Shop\Helper\Renderer::e($link['id']) ?>"><?= Cm\Shop\Helper\Renderer::e($link['name']); ?></a>
             </li>
         <?php endforeach; ?>
         <li class="cart-icon">
