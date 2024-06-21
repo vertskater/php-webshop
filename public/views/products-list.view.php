@@ -8,7 +8,7 @@
 				<hr/>
 				<div class="flex-space-between">
 					<a class="add-cart" href="/add-to-cart.php?id=<?= $product['id'] ?>&cat_id=<?= $cat_id ?? '' ?>"><span class="material-icons-outlined">add_shopping_cart</span> </a>
-					<span class="product-price">€ <?=\Cm\Shop\Helper\Renderer::e($product['price']) ?></span>
+					<span class="product-price">€ <?= Cm\Shop\Helper\Renderer::e(number_format($product['price'], 2, ',', '.')) ?></span>
 				</div>
 			</a>
 		</div>

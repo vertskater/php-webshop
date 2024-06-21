@@ -3,6 +3,23 @@ require dirname(__DIR__) . '/src/bootstrap.php';
 use Cm\Shop\Helper\Renderer;
 use Cm\Shop\Config\Config;
 
+$info = [];
+$quantity = filter_input(INPUT_POST, 'quantity', FILTER_VALIDATE_INT, [
+	'options' => [
+		'min_range' => 1,
+		'max_range' => 5
+	]
+]);
+
+$info['error'] = $quantity === false ? 'You can order max 5 pieces per product.' : '';
+$product_id = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT );
+
+if($quantity && $product_id) {
+	$shop->getShoppingCart()->setNewAmount($quantity, $product_id);
+	$count = $shop->getShoppingCart()->cartItemsCount();
+	$info['success'] = 'Quantity successfully changed';
+}
+
 $price['total_net'] = 0;
 $price['ust'] = 0;
 
@@ -23,5 +40,6 @@ Renderer::render(ROOT_PATH . '/public/views/cart.view.php', [
 	'navigation' => $navigation,
 	'items' => $cart_items,
 	'count' => $count,
-	'price' => $price
+	'price' => $price,
+	'info' => $info
 ]);

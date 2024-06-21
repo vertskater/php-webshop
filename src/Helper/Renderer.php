@@ -15,6 +15,11 @@ class Renderer {
 	public static function e(string $output): string {
 		return htmlspecialchars($output, ENT_QUOTES, false);
 	}
+
+	public static function redirect(string $url, array $params = [], int $status_code = 302): void {
+		$query = $params ? '?' . http_build_query($params) : '';
+		header("LOCATION: $url$query", $status_code);
+	}
 }
 
 

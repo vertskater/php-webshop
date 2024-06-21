@@ -27,7 +27,7 @@
         ?>
         <hr/>
         <p class="product-info">Release date: <?= date('d M. Y', strtotime($product['added_at'])); ?></p>
-         <p class="product-price txt-midnight-blue">€ <?=$product['price']?></p>
+         <p class="product-price txt-midnight-blue">€ <?= Cm\Shop\Helper\Renderer::e(number_format($product['price'], '2', ',', '.'))?></p>
          <form action="../product.php?id=<?=$product['id']?>" method="post">
              <label for="quantity">Quantity:</label>
              <input id="quantity" name="quantity" type="number" max="5" min="1" value="1">

@@ -1,8 +1,6 @@
 <?php
 
 namespace Cm\Shop\Classes;
-
-use Cm\Shop\Classes\Exception\PDOExecuteException;
 use Cm\Shop\Config\Config;
 
 class ShoppingCart {
@@ -55,5 +53,27 @@ class ShoppingCart {
 			return false;
 		}
 	}
+	public function isItemInCart(string $prod_id):bool {
+		$sql = "SELECT id FROM cart_items WHERE product_id = :prod_id";
+		$is_in_cart = $this->db->sql_execute($sql, ['prod_id' => $prod_id])->fetch();
+		return (bool)$is_in_cart;
+	}
 
+	public function addAmount(int $amount, string $prod_id): bool {
+		$sql = "SELECT quantity FROM cart_items WHERE product_id = :prod_id";
+		$current_amount = $this->db->sql_execute($sql, ['prod_id' => $prod_id])->fetchColumn();
+
+		if($current_amount >= Config::MAX_ORDER_AMOUNT) {
+			return false;
+		};
+		$sql = "UPDATE cart_items SET quantity = quantity + :amount  WHERE product_id = :prod_id";
+		$this->db->sql_execute($sql, ['amount' => $amount, 'prod_id' => $prod_id]);
+		return true;
+	}
+
+	public function setNewAmount(int $amount, string $prod_id): void {
+		if($amount > Config::MAX_ORDER_AMOUNT) return;
+		$sql = "UPDATE cart_items SET quantity = :amount  WHERE product_id = :prod_id";
+		$this->db->sql_execute($sql, ['amount' => $amount, 'prod_id' => $prod_id]);
+	}
 }

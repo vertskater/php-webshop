@@ -24,6 +24,20 @@
                 <span class="cart-amount"><?= $count ?></span>
             <?php endif; ?>
         </li>
+
+        <?php if(empty($_SESSION)) : ?>
+        <li>
+            <a href="/login.php">Login</a>
+        </li>
+        <?php else : ?>
+        <li class="logged-in">
+            <a href="#"><?= $_SESSION['username'] ?></a>
+            <span class="logout">
+                <span class="material-icons-outlined">logout</span>
+                <a href="/logout.php">Logout</a>
+            </span>
+        </li>
+        <?php endif; ?>
     </ul>
     </nav>
 </header>

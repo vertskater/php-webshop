@@ -1,5 +1,15 @@
 <main class="container">
-    <h1>Checkout: <?= $items[0]['username'] ?? ''?></h1>
+    <?php if(isset($info['success'])) : ?>
+    <div class="success">
+        <?= $info['success']?>
+    </div>
+    <?php endif; ?>
+	<?php if(isset($info['error']) && $info['error'] !== '') : ?>
+      <div class="error">
+            <?= $info['error']?>
+      </div>
+	<?php endif; ?>
+    <h1>Checkout: <?= $_SESSION['username'] ?? ''?></h1>
     <?php if(empty($items)) :  ?>
     <section class="shopping-cart">
         <h2>Sorry there are no products in the Cart.</h2>
@@ -23,7 +33,14 @@
                 <td class="delete-product"><a href="../delete-cart-item.php?cart_id=<?= $item['id'] ?>"><span class="material-icons">clear</span></a></td>
                 <td><?=$key + 1 ?></td>
                 <td><?=$item['name']?></td>
-                <td><?=$item['quantity']?></td>
+                <td>
+                  <form action="/cart.php" method="POST">
+                      <label for="quantity"></label>
+                      <input type="number" id="quantity" name="quantity" value="<?=$item['quantity']?>" min="1" max="5">
+                      <input type="hidden" name="product_id" id="product_id" value="<?= $item['product_id'] ?>">
+                      <button type="submit"><span class="material-icons-outlined">done</span></button>
+                  </form>
+                </td>
                 <td><span>€</span> <?= number_format((($item['quantity'] * $item['price']) * 100) / 120, 2, ',', '.')?></td>
             </tr>
             <?php endforeach; ?>
