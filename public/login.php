@@ -6,6 +6,7 @@ use Cm\Shop\Helper\Validate;
 $title = 'Login - Webshop';
 $navigation = $shop->getCategories()->getNavigation();
 $info['error'] = null;
+$info['success'] = filter_input(INPUT_GET, 'success') ===  '1' ? 'Successfully registered, pls log in' : '';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
@@ -18,6 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$user = $shop->getUsers()->login($email, $password);
 		if($user){
 			$shop->getSession()->createSession($user);
+			$shop->getShoppingCart()->changeUserId($user['id']);
 			Renderer::redirect('/index.php');
 		}else {
 			$info['error'] = 'login failed';
@@ -32,5 +34,6 @@ Renderer::render(ROOT_PATH . '/public/views/login.view.php', [
 	'navigation' => $navigation,
 	'count' => $count,
 	'email' => $email ?? '',
-	'error' => $info['error']
+	'error' => $info['error'],
+	'success' => $info['success']
 ]);

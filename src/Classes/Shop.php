@@ -10,6 +10,7 @@ class Shop {
 	protected ShoppingCart $shopping_cart;
 	protected Session $session;
   protected User $user;
+	protected UserRole $role;
 
 	public function __construct(string $dsn, string $username, string $password) {
 		$this->db = new Database($dsn, $username, $password);
@@ -50,6 +51,11 @@ class Shop {
 		}
 		return $this->user;
 	}
-
+	public function getRoles(): UserRole {
+		if(empty($this->role)) {
+			return new UserRole($this->db);
+		}
+		return $this->role;
+	}
 }
 

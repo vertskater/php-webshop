@@ -14,4 +14,11 @@ class Validate {
 		}
 		return false;
 	}
+	public static function validate_is_string(string $text, int $min = 1, int $max = 10000): bool {
+		return mb_strlen($text) >= $min and mb_strlen($text) <= $max;
+ 	}
+	 public static function validate_is_int(int $num, int $min = 0, int $max = PHP_INT_MAX): bool {
+		return $num >= $min and $num <= $max;
+	 }
+
 }

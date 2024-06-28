@@ -311,7 +311,15 @@ main.login-container {
     }
 }
 
+form.register {
+    span.error {
+        color: var(--salmon);
+    }
+}
 
+.register-link {
+    color: var(--salmon);
+}
 
 @media (max-width: 768px) {
     .category {

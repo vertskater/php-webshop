@@ -15,12 +15,17 @@ class ShoppingCart {
 			$this->db->sql_execute($sql, [
 				'product_id' =>  $product['id'],
 				'quantity' => $quantity,
-				'user_id' => $product['user_id'] ?? Config::GUEST_USER_ID
+				'user_id' => $_SESSION['id'] ?? Config::GUEST_USER_ID
 			]);
 			return true;
 		}catch(\PDOException $e) {
 			return false;
 		}
+	}
+
+	public function changeUserId($userid): void {
+		$sql = "UPDATE cart_items SET user_id = :userid";
+		$this->db->sql_execute($sql, ['userid' => $userid]);
 	}
 	public function fetchCartItems(): array {
 		$sql = "SELECT c.id, c.product_id, c.quantity, c.user_id, p.name, p.price, CONCAT(u.firstname, ' ', u.lastname) as username  FROM cart_items as c

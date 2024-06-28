@@ -25,13 +25,13 @@
             <?php endif; ?>
         </li>
 
-        <?php if(empty($_SESSION)) : ?>
+        <?php if(empty($_SESSION) && empty($_SESSION['id'])) : ?>
         <li>
             <a href="/login.php">Login</a>
         </li>
         <?php else : ?>
         <li class="logged-in">
-            <a href="#"><?= $_SESSION['username'] ?></a>
+            <a href="/user.php?id=<?= $_SESSION['id'] ?>"><?= $_SESSION['username'] ?></a>
             <span class="logout">
                 <span class="material-icons-outlined">logout</span>
                 <a href="/logout.php">Logout</a>
