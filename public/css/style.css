@@ -321,6 +321,13 @@ form.register {
     color: var(--salmon);
 }
 
+.profile-pic {
+    img {
+        display: block;
+        height: 10rem;
+    }
+}
+
 @media (max-width: 768px) {
     .category {
         font-size: 1rem;

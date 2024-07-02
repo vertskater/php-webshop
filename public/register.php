@@ -14,6 +14,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$form_data['lastname'] = filter_input(INPUT_POST, 'lastname');
 	$form_data['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 	$form_data['password'] = filter_input(INPUT_POST, 'password');
+	$form_data['profile_pic_id'] = $shop->getImages()->getProfilePicId(Config::PROFILE_IMAGE_PLACEHOLDER);
 
 	$errors['password_match'] = filter_input(INPUT_POST, 'password') === filter_input(INPUT_POST, 'password-confirm') ? '' : 'Passwords do not match';
 	$errors['password'] = Validate::validatePassword($form_data['password']) ? '' : 'Password need to have min 8 charakters, and include Upper-, Lower-Case and special chars.';
@@ -25,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if(!$valid) {
 		$form_data['role_id'] = $shop->getRoles()->getRoleId(Config::DEFAULT_USER_ROLE);
 		$shop->getUsers()->registerUser($form_data);
-		header('LOCATION: /login.php?success=1');
+		Renderer::redirect('/login.php', ['success' => 1]);
 	}
  }
 

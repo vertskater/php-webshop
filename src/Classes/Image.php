@@ -18,4 +18,8 @@ class Image {
 		])->fetchAll();
 	}
 
+	public function getProfilePicId(string $file_name, string $type = 'profile_img'): ?int{
+		$sql = "SELECT id FROM images WHERE filename = :filename AND type = :type";
+		return $this->db->sql_execute($sql, ['filename' => $file_name, 'type' => $type])->fetchColumn();
+	}
 }

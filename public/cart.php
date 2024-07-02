@@ -23,7 +23,7 @@ if($quantity && $product_id) {
 $price['total_net'] = 0;
 $price['ust'] = 0;
 
-$cart_items = $shop->getShoppingCart()->fetchCartItems();
+$cart_items = $shop->getShoppingCart()->fetchCartItems($_SESSION['id']);
 $count_items = $shop->getShoppingCart()->cartItemsCount() ?? 0;
 $navigation = $shop->getCategories()->getNavigation();
 $title = "$count_items - Products in shopping cart";

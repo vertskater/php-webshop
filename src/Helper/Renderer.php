@@ -19,6 +19,7 @@ class Renderer {
 	public static function redirect(string $url, array $params = [], int $status_code = 302): void {
 		$query = $params ? '?' . http_build_query($params) : '';
 		header("LOCATION: $url$query", $status_code);
+		exit;
 	}
 }
 

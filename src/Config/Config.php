@@ -13,10 +13,11 @@ class Config {
 	const float UST = 0.2;
 	const int MAX_ORDER_AMOUNT = 5;
 	//USER DATA
-	const int GUEST_USER_ID = 3;
+	const int GUEST_USER_ID = 3; //TODO: Replace id with name
 	const string DEFAULT_USER_ROLE = 'customer';
 	//UPLOAD
 	const array IMAGE_TYPES = ['header_img', 'profile_img', 'product_img'];
+	const string PROFILE_IMAGE_PLACEHOLDER = 'profile_placeholder.jpg';
 
 	public function __construct() {
 		define('ROOT_PATH', dirname(__DIR__, 2));
