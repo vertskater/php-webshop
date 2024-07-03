@@ -5,7 +5,7 @@ namespace Cm\Shop\Classes;
 class Session {
 	public string $id;
 	public string $username;
-	public array $cart_items;
+	public array $cart;
 	public string $role;
 
 	public function __construct() {
@@ -13,8 +13,9 @@ class Session {
 		$this->id = $_SESSION['id'] ?? 0;
 		$this->role = $_SESSION['role'] ?? 'guest';
 		$this->username = $_SESSION['username'] ?? 'Guest User';
-		$this->cart_items = $_SESSION['cart_items'] ?? [];
+		$this->cart = $_SESSION['cart'] ?? [];
 	}
+
 	public function updateSession(array $user): void {
 		$this->createSession($user);
 	}
@@ -24,6 +25,7 @@ class Session {
 		$_SESSION['username'] = strstr($user['email'], '@', true);
 		$_SESSION['expire'] = time() + 30 * 60;
 		$_SESSION['role'] = $user['role'];
+		$_SESSION['cart'] = [];
 	}
 	public function destroySession(): void {
 		$_SESSION = [];

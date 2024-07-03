@@ -25,7 +25,7 @@
             <?php endif; ?>
         </li>
 
-        <?php if(empty($_SESSION) && empty($_SESSION['id'])) : ?>
+        <?php if(empty($_SESSION['id'])) : ?>
         <li>
             <a href="/login.php">Login</a>
         </li>

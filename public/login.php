@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$user = $shop->getUsers()->login($email, $password);
 		if($user){
 			$shop->getSession()->createSession($user);
-			$shop->getShoppingCart()->changeUserId($user['id']);
+			//$shop->getShoppingCart()->changeUserId($user['id']);
 			Renderer::redirect('/index.php');
 		}else {
 			$info['error'] = 'login failed';

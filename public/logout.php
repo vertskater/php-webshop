@@ -5,5 +5,6 @@ use Cm\Shop\Helper\Renderer;
 use Cm\Shop\Config\Config;
 
 $session->destroySession();
-$shop->getShoppingCart()->changeUserId(Config::GUEST_USER_ID);
+//$shop->getShoppingCart()->changeUserId(Config::GUEST_USER_ID);
+
 Renderer::redirect('/index.php');

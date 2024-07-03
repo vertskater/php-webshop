@@ -30,7 +30,7 @@
             </tr>
             <?php foreach ($items as $key => $item) :?>
             <tr>
-                <td class="delete-product"><a href="../delete-cart-item.php?cart_id=<?= $item['id'] ?>"><span class="material-icons">clear</span></a></td>
+                <td class="delete-product"><a href="../delete-cart-item.php?product_id=<?= $item['product_id'] ?>"><span class="material-icons">clear</span></a></td>
                 <td><?=$key + 1 ?></td>
                 <td><?=$item['name']?></td>
                 <td>

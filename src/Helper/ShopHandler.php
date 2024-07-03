@@ -11,20 +11,33 @@ class ShopHandler {
 	}
 
 	public function handleAddToCartRequest(): self {
-			$product_id = filter_input(INPUT_GET, 'id') ?? '';
-			$quantity = filter_input(INPUT_POST, 'quantity') ?? 1;
-			$product = $this->shop->getProducts()->fetchById($product_id);
+			$cart_item['product_id'] = filter_input(INPUT_GET, 'id') ?? '';
+			$cart_item['quantity'] = filter_input(INPUT_POST, 'quantity') ?? 1;
+			$product = $this->shop->getProducts()->fetchById($cart_item['product_id']);
 			$this->errors['product'] = !empty($product) ? '' : 'Could not fetch product';
-			$this->errors['quantity'] = $quantity > 0 ? '' : 'Quantity must be greater than 0';
+			$this->errors['quantity'] = $cart_item['quantity'] > 0 ? '' : 'Quantity must be greater than 0';
 			$no_errors = implode($this->errors);
+			$cart_item['user_id'] = $this->shop->getSession()->id ?? 0;
 			$saved = false;
 			if(!$no_errors) {
-				$is_in_cart = $this->shop->getShoppingCart()->isItemInCart($product_id);
-				if($is_in_cart) {
-					$this->shop->getShoppingCart()->addAmount($quantity, $product_id);
-					return $this;
+				if($cart_item['user_id']) {
+					$is_in_cart = $this->shop->getShoppingCart()->isItemInCart( $cart_item['product_id'], $cart_item['user_id'] );
+					if ( $is_in_cart ) {
+						$this->shop->getShoppingCart()->addAmount($cart_item);
+						return $this;
+					}
+					$saved = $this->shop->getShoppingCart()->addToCart( $product, $cart_item['quantity'] );
+				}else {
+					if(empty($_SESSION['cart'])) {
+						$_SESSION['cart'][$cart_item['product_id']] = $cart_item;
+						return $this;
+					}
+					if(array_key_exists($cart_item['product_id'], $_SESSION['cart'])) {
+						$_SESSION['cart'][$cart_item['product_id']]['quantity'] += 1;
+						return $this;
+					}
+					$_SESSION['cart'][$cart_item['product_id']] = $cart_item;
 				}
-				$saved = $this->shop->getShoppingCart()->addToCart($product, $quantity);
 			}
 			$this->errors['saved'] = $saved ? 'Successfully moved to Shopping Cart' : 'Could not connect to Database.';
 		return $this;
