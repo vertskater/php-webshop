@@ -5,27 +5,27 @@ use Cm\Shop\Config\Config;
 use Cm\Shop\Helper\Helper;
 
 $info = [];
+$price['total_net'] = 0;
+$price['ust'] = 0;
+
+
 $quantity = filter_input(INPUT_POST, 'quantity', FILTER_VALIDATE_INT, [
 	'options' => [
 		'min_range' => 1,
 		'max_range' => 5
 	]
 ]);
-
 $info['error'] = $quantity === false ? 'You can order max 5 pieces per product.' : '';
-$product_id = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT );
+$product_id    = filter_input( INPUT_POST, 'product_id', FILTER_VALIDATE_INT );
 
-if($quantity && $product_id) {
-	$shop->getShoppingCart()->setNewAmount($quantity, $product_id);
-	$count = $shop->getShoppingCart()->cartItemsCount($_SESSION['id'] ?? $shop->getSession()->id);
-	$info['success'] = 'Quantity successfully changed';
-}
-
-$price['total_net'] = 0;
-$price['ust'] = 0;
-
-$cart_items = $shop->getShoppingCart()->fetchCartItems($_SESSION['id'] ?? $shop->getSession()->id);
-if(!empty($shop->getSession()->cart)) {
+if(empty($shop->getSession()->cart)) {
+	if ( $quantity && $product_id ) {
+		$shop->getShoppingCart()->setNewAmount( $quantity, $product_id );
+		$count           = $shop->getShoppingCart()->cartItemsCount( $_SESSION['id']);
+		$info['success'] = 'Quantity successfully changed';
+	}
+	$cart_items = $shop->getShoppingCart()->fetchCartItems( $_SESSION['id'] ?? $shop->getSession()->id );
+}else {
 	$cart_items = $shop->getSession()->cart;
 	$cart_items = array_map(function ($cart_item) use ($shop){
 		$cart_item['id'] = $shop->getSession()->id;
@@ -35,9 +35,15 @@ if(!empty($shop->getSession()->cart)) {
 		$cart_item['username'] = 'Guest User';
 		return $cart_item;
 	}, $cart_items);
+	$info['success'] = 'Quantity successfully changed';
+	if($quantity && array_key_exists($product_id, $shop->getSession()->cart)) {
+		$cart_items[$product_id]['quantity'] = $quantity;
+		$shop->getSession()->cart[$product_id]['quantity'] = $quantity;
+		$shop->getSession()->updateSessionCart($shop->getSession()->cart);
+		$count = (new Helper($shop))->sumCartItemsQuantity();
+ 	}
 }
 
-$count = !empty($_SESSION['id']) ? $shop->getShoppingCart()->cartItemsCount($_SESSION['id']) : (new Helper($shop))->sumCartItemsQuantity($shop->getSession()->cart);
 $navigation = $shop->getCategories()->getNavigation();
 $title = "$count - Products in shopping cart";
 foreach ($cart_items as $item) {

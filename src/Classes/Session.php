@@ -15,6 +15,9 @@ class Session {
 		$this->username = $_SESSION['username'] ?? 'Guest User';
 		$this->cart = $_SESSION['cart'] ?? [];
 	}
+	public function updateSessionCart(array $cart_items): void {
+		$_SESSION['cart'] = $cart_items;
+	}
 
 	public function updateSession(array $user): void {
 		$this->createSession($user);
