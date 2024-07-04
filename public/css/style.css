@@ -327,6 +327,9 @@ form.register {
         height: 10rem;
     }
 }
+form .register-gender {
+    display: flex;
+}
 
 @media (max-width: 768px) {
     .category {

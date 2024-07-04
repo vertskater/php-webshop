@@ -1,5 +1,5 @@
 <main class="container container-padding">
-    <h1>Welcome, <?= $user['username'] ?></h1>
+    <h1>Welcome, <?= strtoupper($user['username']) ?></h1>
     <section class="grid">
         <section>
             <table>
@@ -28,14 +28,24 @@
                             <?= $user['role']?>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            Date of Birth:
+                        </td>
+                        <td>
+                            <?= date('d. M. Y' ,strtotime($user['birthdate']))?>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </section>
         <section class="profile-pic">
             <img src="<?=  './img/' . $user['image_name'] ?>" alt="<?= $user['image_alt'] ?>">
-            <form action="/profile.php">
-                <label for="image">Change Profile Pic</label>
-                <input type="file" id="image" name="image">
+            <form action="/user.php?id=<?=$user['id'] ?>" method="post" enctype="multipart/form-data">
+                <label for="image"></label>
+                <input type="file" id="image" name="image" accept="image/jpeg, image/png">
+                <span><?= $upload_errors['image'] ?? '' ?></span>
+                <button type="submit">Change profile image</button>
             </form>
         </section>
     </section>

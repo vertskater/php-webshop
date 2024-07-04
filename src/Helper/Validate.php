@@ -2,6 +2,8 @@
 
 namespace Cm\Shop\Helper;
 
+use Cm\Shop\Config\Config;
+
 class Validate {
 	public static function validatePassword(string $password): bool {
 		$valid['upper_letter'] = preg_match('/[A-Z]/', $password);
@@ -17,8 +19,12 @@ class Validate {
 	public static function validate_is_string(string $text, int $min = 1, int $max = 10000): bool {
 		return mb_strlen($text) >= $min and mb_strlen($text) <= $max;
  	}
+
 	 public static function validate_is_int(int $num, int $min = 0, int $max = PHP_INT_MAX): bool {
 		return $num >= $min and $num <= $max;
+	 }
+	 public static function validate_gender(string $gender): bool {
+		 return in_array($gender, Config::GENDER);
 	 }
 
 }

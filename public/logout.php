@@ -8,3 +8,4 @@ $session->destroySession();
 //$shop->getShoppingCart()->changeUserId(Config::GUEST_USER_ID);
 
 Renderer::redirect('/index.php');
+

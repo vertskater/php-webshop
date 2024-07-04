@@ -22,4 +22,17 @@ class Image {
 		$sql = "SELECT id FROM images WHERE filename = :filename AND type = :type";
 		return $this->db->sql_execute($sql, ['filename' => $file_name, 'type' => $type])->fetchColumn();
 	}
+	public function save(string $file_name, string $alt_text, string $type = 'profile_img'): string|false {
+		$sql = "INSERT INTO images (filename, alt, type) VALUES (:filename, :alt, :type)";
+		try {
+			$this->db->sql_execute($sql, [
+				'filename' => $file_name,
+				'alt' => $alt_text,
+				'type' => $type
+			]);
+			return $this->db->lastInsertId();
+		}catch (\PDOException $e) {
+			return false;
+		}
+	}
 }

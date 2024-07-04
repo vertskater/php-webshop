@@ -7,12 +7,15 @@ class Session {
 	public string $username;
 	public array $cart;
 	public string $role;
+	public array $profile_img;
 
 	public function __construct() {
 		session_start();
 		$this->id = $_SESSION['id'] ?? 0;
 		$this->role = $_SESSION['role'] ?? 'guest';
 		$this->username = $_SESSION['username'] ?? 'Guest User';
+		$this->profile_img['image'] = $_SESSION['image'] ?? '';
+		$this->profile_img['alt'] = $_SESSION['image_alt'] ?? '';
 		$this->cart = $_SESSION['cart'] ?? [];
 	}
 	public function updateSessionCart(array $cart_items): void {

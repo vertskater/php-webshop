@@ -14,4 +14,3 @@ $count = $shop->getShoppingCart()->cartItemsCount($_SESSION['id'] ?? $shop->getS
 if(!empty($shop->getSession()->cart)) {
 	$count = (new Helper($shop))->sumCartItemsQuantity($shop->getSession()->cart);
 }
-

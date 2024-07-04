@@ -16,6 +16,8 @@
     "require": {
         "picocss/pico": "^2.0",
       "ext-pdo": "*",
-      "ext-mbstring": "*"
+      "ext-mbstring": "*",
+      "ext-gd": "*",
+      "ext-fileinfo": "*"
     }
 }
