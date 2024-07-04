@@ -12,10 +12,10 @@
 	<?php endif; ?>
     <form action="../login.php" method="post">
         <label for="email" >E-Mail-Address
-            <input type="email" id="email" name="email" value="<?= $email ?? '' ?>">
+            <input type="email" id="email" name="email" value="<?= $email ?? '' ?>" autocomplete="username">
         </label>
         <label for="password">Password
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" autocomplete="current-password">
         </label>
         <input type="submit" value="Login">
     </form>

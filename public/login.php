@@ -2,6 +2,7 @@
 require dirname(__DIR__) . '/src/bootstrap.php';
 use Cm\Shop\Helper\Renderer;
 use Cm\Shop\Helper\Validate;
+use Cm\Shop\Helper\Helper;
 
 $title = 'Login - Webshop';
 $navigation = $shop->getCategories()->getNavigation();
@@ -19,7 +20,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$user = $shop->getUsers()->login($email, $password);
 		if($user){
 			$shop->getSession()->createSession($user);
-			//$shop->getShoppingCart()->changeUserId($user['id']);
+			$current_cart_items = $shop->getShoppingCart()->fetchAllCartEntriesByUser($user['id']);
+			$new_cart_items = Helper::combineCart($current_cart_items, $shop->getSession()->cart);
+			if(!empty($new_cart_items)) {
+				foreach ($new_cart_items as $cart_item) {
+					$shop->getShoppingCart()->deleteItem($cart_item['product_id'], $cart_item['user_id']);
+					$shop->getShoppingCart()->addToCart($cart_item['product_id'], $cart_item['quantity']);
+				}
+			}
 			Renderer::redirect('/index.php');
 		}else {
 			$info['error'] = 'login failed';

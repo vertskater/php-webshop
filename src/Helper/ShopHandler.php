@@ -26,7 +26,7 @@ class ShopHandler {
 						$this->shop->getShoppingCart()->addAmount($cart_item);
 						return $this;
 					}
-					$saved = $this->shop->getShoppingCart()->addToCart( $product, $cart_item['quantity'] );
+					$saved = $this->shop->getShoppingCart()->addToCart( $product['id'], $cart_item['quantity'] );
 				}else {
 					if(empty($_SESSION['cart'])) {
 						$_SESSION['cart'][$cart_item['product_id']] = $cart_item;

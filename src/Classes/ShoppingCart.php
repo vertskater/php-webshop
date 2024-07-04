@@ -9,11 +9,11 @@ class ShoppingCart {
 		$this->db = $db;
 	}
 
-	public function addToCart(array $product, int $quantity): bool {
+	public function addToCart(int|string $product_id, int $quantity): bool {
 		$sql = "INSERT INTO cart_items (product_id, quantity, user_id) VALUES(:product_id, :quantity, :user_id)";
 		try {
 			$this->db->sql_execute($sql, [
-				'product_id' =>  $product['id'],
+				'product_id' =>  $product_id,
 				'quantity' => $quantity,
 				'user_id' => $_SESSION['id']
 			]);
@@ -23,9 +23,9 @@ class ShoppingCart {
 		}
 	}
 
-	public function changeUserId($userid): void {
-		$sql = "UPDATE cart_items SET user_id = :userid";
-		$this->db->sql_execute($sql, ['userid' => $userid]);
+	public function fetchAllCartEntriesByUser(int $user_id): array {
+		$sql = "SELECT product_id, quantity, user_id FROM cart_items WHERE user_id = :user_id";
+		return $this->db->sql_execute($sql, ['user_id' => $user_id])->fetchAll();
 	}
 	public function fetchCartItems(int $user_id): array {
 		$sql = "SELECT c.id, c.product_id, c.quantity, c.user_id, p.name, p.price, CONCAT(u.firstname, ' ', u.lastname) as username  FROM cart_items as c
@@ -50,10 +50,10 @@ class ShoppingCart {
 	 *
 	 * @return bool
 	 */
-	public function deleteItem(string $product_id): bool {
-		$sql = "DELETE FROM cart_items WHERE product_id = :id";
+	public function deleteItem(string $product_id, int|string $user_id): bool {
+		$sql = "DELETE FROM cart_items WHERE product_id = :id and user_id = :user_id";
 		try {
-			$this->db->sql_execute($sql, ['id' => $product_id]);
+			$this->db->sql_execute($sql, ['id' => $product_id, 'user_id' => $user_id]);
 			return true;
 		} catch(\PDOException $e) {
 			return false;

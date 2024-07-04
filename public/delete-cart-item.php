@@ -7,7 +7,7 @@ if(empty($_SESSION['id'])) {
 	$index = array_key_exists($product_id, $shop->getSession()->cart);
 	if($index) unset($_SESSION['cart'][$product_id]);
 }else {
-	$shop->getShoppingCart()->deleteItem($product_id);
+	$shop->getShoppingCart()->deleteItem($product_id, $shop->getSession()->id);
 }
 
 Renderer::redirect('/cart.php');

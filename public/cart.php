@@ -35,12 +35,12 @@ if(empty($shop->getSession()->cart)) {
 		$cart_item['username'] = 'Guest User';
 		return $cart_item;
 	}, $cart_items);
-	$info['success'] = 'Quantity successfully changed';
 	if($quantity && array_key_exists($product_id, $shop->getSession()->cart)) {
 		$cart_items[$product_id]['quantity'] = $quantity;
 		$shop->getSession()->cart[$product_id]['quantity'] = $quantity;
 		$shop->getSession()->updateSessionCart($shop->getSession()->cart);
 		$count = (new Helper($shop))->sumCartItemsQuantity();
+		$info['success'] = 'Quantity successfully changed';
  	}
 }
 
