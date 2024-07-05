@@ -21,21 +21,31 @@
         <li class="cart-icon">
             <a href="/cart.php"><span class="material-icons-outlined">shopping_cart</span></a>
             <?php if($count > 0) : ?>
-                <span class="cart-amount"><?= $count ?></span>
+                <span class="cart-amount"><?= \Cm\Shop\Helper\Renderer::e($count) ?></span>
             <?php endif; ?>
         </li>
-
         <?php if(empty($_SESSION['id'])) : ?>
         <li>
             <a href="/login.php">Login</a>
         </li>
         <?php else : ?>
+        <li class="nav-profile-img">
+            <img src="../img/<?= $_SESSION['image']?>" alt="<?= $_SESSION['image_alt'] ?>">
+        </li>
         <li class="logged-in">
             <a href="/user.php?id=<?= $_SESSION['id'] ?>"><?= $_SESSION['username'] ?></a>
-            <span class="logout">
-                <span class="material-icons-outlined">logout</span>
-                <a href="/logout.php">Logout</a>
-            </span>
+            <ul class="logout">
+	            <?php if($_SESSION['role'] === 'admin') : ?>
+                  <li>
+                      <span class="material-icons-outlined">dashboard</span>
+                      <a href="/admin/admin.php">Admin</a>
+                  </li>
+	            <?php endif ?>
+                <li>
+                    <span class="material-icons-outlined">logout</span>
+                    <a href="/logout.php">Logout</a>
+                </li>
+            </ul>
         </li>
         <?php endif; ?>
     </ul>
@@ -65,7 +75,7 @@
         <ul>
           <?php if(!empty($footer_menu)) :?>
             <?php foreach($footer_menu as $link) : ?>
-                <li><a href="<?=ROOT_PATH . $link['src'] ?>"><?= $link['name'] ?></a></li>
+                <li><a href="<?=ROOT_PATH . \Cm\Shop\Helper\Renderer::e($link['src']) ?>"><?= \Cm\Shop\Helper\Renderer::e($link['name']) ?></a></li>
             <?php endforeach; ?>
           <?php endif; ?>
         </ul>

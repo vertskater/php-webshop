@@ -35,7 +35,7 @@ class ShoppingCart {
 		return $this->db->sql_execute($sql, ['id' => $user_id])->fetchAll();
 	}
 
-	public function cartItemsCount(int|string $user_id = Config::GUEST_USER_ID): int|false|null {
+	public function cartItemsCount(int|string $user_id): int|false|null {
 	$sql = "Select SUM(quantity) as quantity FROM cart_items WHERE user_id = :id";
 		try {
 			return $this->db->sql_execute($sql, ['id' => $user_id])->fetch()['quantity'];

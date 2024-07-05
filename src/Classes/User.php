@@ -13,11 +13,9 @@ class User {
 
 	public function login(string $email, string $password): false|array {
 		$user = self::fetchLoginCredentials($email);
-
 		if(!$user) {
 			return false;
 		}
-
 		if(password_verify($password, $user['password'])) {
 			return $user;
 		}
@@ -61,9 +59,11 @@ class User {
 	}
 
 	private function fetchLoginCredentials(string $email): array|false {
-		$sql = "SELECT u.id, u.firstname, u.lastname, u.email, u.password, r.name as role
+		$sql = "SELECT u.id, u.firstname, u.lastname, u.email, u.password, 
+       			r.name as role, i.filename as image_name, i.alt as image_alt
 						FROM users as u
 						JOIN roles as r on u.role_id = r.id
+						LEFT JOIN images as i on profile_pic_id = i.id
 						WHERE email = :mail";
 		return $this->db->sql_execute($sql, ['mail' => $email])->fetch();
 	}

@@ -1,9 +1,9 @@
 
 <main class="container container-padding">
 	<h1><?=$product['name']?></h1>
-    <?php if(!empty($errors)) : ?>
+    <?php if(!empty($info)) : ?>
        <p>
-           <mark><?= $errors['saved'] ?? '' ?></mark>
+           <mark><?= $info['saved'] ?? '' ?></mark>
        </p>
     <?php endif; ?>
 	<section class="grid">

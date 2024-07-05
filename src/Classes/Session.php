@@ -21,7 +21,6 @@ class Session {
 	public function updateSessionCart(array $cart_items): void {
 		$_SESSION['cart'] = $cart_items;
 	}
-
 	public function updateSession(array $user): void {
 		$this->createSession($user);
 	}
@@ -31,8 +30,11 @@ class Session {
 		$_SESSION['username'] = strstr($user['email'], '@', true);
 		$_SESSION['expire'] = time() + 30 * 60;
 		$_SESSION['role'] = $user['role'];
+		$_SESSION['image'] = $user['image_name'];
+		$_SESSION['image_alt'] = $user['image_alt'];
 		$_SESSION['cart'] = [];
 	}
+
 	public function destroySession(): void {
 		$_SESSION = [];
 		$cookie_data = session_get_cookie_params();
