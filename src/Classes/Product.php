@@ -17,15 +17,21 @@ class Product {
 		return $this->db->sql_execute($sql, [':id' => $id])->fetch();
 	}
 	public function fetchAll(int $limit = 10): array {
-		$sql = "SELECT p.id, p.name, p.description, p.price, p.added_at, c.id as cat_id, c.name as category_name, i.filename as image, i.alt as image_alt FROM products as p
+		$sql = "SELECT p.id, p.name, p.in_store, p.description, p.price, p.added_at,
+       			c.id as cat_id, c.name as category_name, 
+       			i.filename as image, i.alt as image_alt FROM products as p
             JOIN categories as c on p.category_id = c.id    
         		LEFT JOIN images as i on p.image_id = i.id
             ORDER BY p.added_at DESC                                                                                      
         		LIMIT :limit";
 		return $this->db->sql_execute($sql, ['limit' => $limit])->fetchAll();
 	}
+	public function fetchStoredProducts(int $min_store = 0): array {
+		$sql = "SELECT p.name, p.in_store FROM products as p WHERE in_store > :min_store";
+		return $this->db->sql_execute($sql, ['min_store' => $min_store])->fetchAll();
+	}
 	public function fetchProductsByCategory(string $cat_id): array {
-		$sql = "SELECT p.id, p.name, p.description, p.price, p.added_at, c.id as cat_id, c.name as category_name, i.filename as image, i.alt as image_alt FROM products as p
+		$sql = "SELECT p.id, p.name, p.in_store, p.description, p.price, p.added_at, c.id as cat_id, c.name as category_name, i.filename as image, i.alt as image_alt FROM products as p
             JOIN categories as c on p.category_id = c.id    
         		LEFT JOIN images as i on p.image_id = i.id
             WHERE p.category_id = :id

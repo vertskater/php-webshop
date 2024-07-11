@@ -12,4 +12,9 @@ class UserRole {
 		$sql = "SELECT id FROM roles WHERE name = :role";
 		return $this->db->sql_execute($sql, ['role' => $role])->fetchColumn();
 	}
+	public function fetchAllRoles(int $limit = 10): array{
+		$sql = "SELECT id, name FROM roles LIMIT :limit";
+		return $this->db->sql_execute($sql, ['limit' => $limit])->fetchAll();
+	}
+
 }

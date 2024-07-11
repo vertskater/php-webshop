@@ -232,6 +232,7 @@ nav .nav-profile-img {
         color: var(--light);
     }
 }
+
 table.cart-price {
     .delete-product a {
         color: var(--salmon);
@@ -266,6 +267,17 @@ table.cart-price {
     .total-price {
         font-family: "roboto bold", serif;
     }
+    .user-img {
+        img {
+            border-radius: 50%;
+        }
+    }
+}
+form {
+    select.role-option {
+        padding: .2rem;
+        min-width: 5rem;
+    }
 }
 .checkout {
     width: 100%;
@@ -292,7 +304,9 @@ div.error {
 main.login-container {
     max-width: 50%;
 }
-
+.salmon {
+    color: var(--salmon);
+}
 .logged-in {
     position: relative;
     .logout {
@@ -348,6 +362,37 @@ form .register-gender {
     display: flex;
 }
 
+section.custom-grid {
+    grid-template-columns: 25% 75%;
+}
+table.cart-price {
+    font-size: .8rem;
+    td.product-img,
+    td.user-img{
+        max-width: 2rem;
+    }
+    td.product-desc {
+        font-size: .6rem;
+    }
+    td.edit-product {
+        a {
+            color: var(--salmon);
+            transition: color 250ms ease-in-out;
+            &:hover{
+                color: var(--darker-blue);
+            }
+        }
+
+    }
+}
+.full-height {
+    height: 100vh;
+}
+.side-menu a.selected {
+    color: var(--salmon);
+}
+
+
 @media (max-width: 768px) {
     .category {
         font-size: 1rem;
@@ -361,6 +406,9 @@ form .register-gender {
     }
     .product-info {
         font-size: 1.2rem;
+    }
+    section.custom-grid {
+        grid-template-columns: auto;
     }
 }
 

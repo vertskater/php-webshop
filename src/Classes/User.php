@@ -35,13 +35,23 @@ class User {
 		}
 	}
 	public function fetchUserById(string|int $id): array|false {
-		$sql = "SELECT u.id, CONCAT(u.firstname, ' ', u.lastname) as username, u.email, u.birthdate, u.gender, r.name as role,
+		$sql = "SELECT u.id, CONCAT(u.firstname, ' ', u.lastname) as username, u.email, 
+       			u.birthdate, u.gender, r.name as role,
        			i.filename as image_name, i.alt as image_alt
 						FROM users as u
 						JOIN roles as r on u.role_id = r.id
 						LEFT JOIN images as i on u.profile_pic_id = i.id
 						WHERE u.id = :id";
 		return $this->db->sql_execute($sql, ['id' => $id])->fetch();
+	}
+	public function fetchUserByRole(string|int $role_id): array|false {
+		$sql = "SELECT u.id, CONCAT(u.firstname, ' ', u.lastname) as name, u.email, u.birthdate, u.gender, 
+       			r.name as role, i.filename, i.alt
+						FROM users as u
+						JOIN roles as r ON u.role_id = r.id
+						LEFT JOIN images as i ON u.profile_pic_id = i.id
+					  WHERE u.role_id = :role_id";
+		return $this->db->sql_execute($sql, ['role_id' => $role_id])->fetchAll();
 	}
 
 
@@ -78,5 +88,18 @@ class User {
 		}catch (\PDOException $e) {
 			return false;
 		}
+	}
+	public function fetchAllUsers(int $limit = 10): array {
+		$sql = "SELECT u.id, CONCAT(u.firstname, ' ', u.lastname) as name, u.email, u.birthdate, u.gender, 
+       			r.name as role, i.filename, i.alt
+						FROM users as u
+						JOIN roles as r ON u.role_id = r.id
+						LEFT JOIN images as i ON u.profile_pic_id = i.id
+						LIMIT :limit";
+		return $this->db->sql_execute($sql, ['limit' => $limit])->fetchAll();
+	}
+	public function changeRole(int|string $user_id, int|string $new_role): void {
+		$sql = "UPDATE users SET role_id = :new_role WHERE id = :user_id";
+		$this->db->sql_execute($sql, ['new_role' => $new_role, 'user_id' => $user_id]);
 	}
 }

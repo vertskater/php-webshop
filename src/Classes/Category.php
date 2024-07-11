@@ -16,4 +16,8 @@ class Category {
 		$sql = "SELECT id, name FROM categories WHERE id = :id";
 		return $this->db->sql_execute($sql, ['id' => $id])->fetch();
 	}
+	public function getAll(int $limit = 10): array {
+		$sql = "SELECT * FROM categories LIMIT :limit";
+		return $this->db->sql_execute($sql, ['limit' => $limit])->fetchAll();
+	}
 }
