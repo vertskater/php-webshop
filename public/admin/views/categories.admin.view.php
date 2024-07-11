@@ -12,13 +12,15 @@
 		</thead>
 		<?php foreach($categories as $category) : ?>
 			<tr>
-				<td><a href="#" class="delete-product">X</a> </td>
+				<td><a href="./delete-category.php?cat_id=<?= Renderer::e($category['id']) ?>" class="delete-product">X</a> </td>
 				<td><?= Renderer::e($category['name'])?></td>
 				<td><?= Renderer::e($category['description'])?></td>
 				<td><?= Renderer::e($category['navigation'])?></td>
-				<td class="edit-product"><a href="/public/admin/edit-category.php?cat_id=<?= $category['id']?>">Edit</a> </td>
+				<td class="edit-product"><a href="./edit-category.php?cat_id=<?= $category['id']?>">Edit</a> </td>
 			</tr>
 		<?php endforeach; ?>
 	</table>
-	</div>
+    <div class="add-new">
+        <a role="button" href="./edit-category.php">Add new category</a>
+    </div>
 </main>

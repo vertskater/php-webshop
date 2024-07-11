@@ -5,7 +5,7 @@ use Cm\Shop\Helper\Renderer;
 
 $categories = $shop->getCategories()->getAll();
 $cat_id = filter_input(INPUT_GET, 'cat_id');
-
+$title = 'Dashboard - Products';
 
 if($cat_id) {
 	$products = $shop->getProducts()->fetchProductsByCategory($cat_id);
@@ -16,6 +16,7 @@ if($cat_id) {
 Renderer::render('./views/products.admin.view.php', [
 	'navigation' => ADMIN_NAV,
 	'categories' => $categories,
+	'title' => $title,
 	'cat_id' => $cat_id,
 	'products' => $products
 ], '/public/admin/views/layout/admin.main.php');

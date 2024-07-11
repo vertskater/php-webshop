@@ -392,6 +392,22 @@ table.cart-price {
     color: var(--salmon);
 }
 
+div.add-new {
+    float: right;
+}
+form.delete-category {
+    display: flex;
+    input[type="submit"] {
+        width: inherit;
+        margin-right: .3rem;
+    }
+
+}
+form.form-edit {
+    span {
+        color: var(--salmon);
+    }
+}
 
 @media (max-width: 768px) {
     .category {
