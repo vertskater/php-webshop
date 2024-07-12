@@ -1,3 +1,4 @@
+<?php use Cm\Shop\Helper\Renderer; ?>
 <main class="container container-padding">
     <h1>Register new user</h1>
 	<form class="register" action="../register.php" method="post">
@@ -21,6 +22,15 @@
 			<input type="text" id="lastname" name="lastname" placeholder="lastname" value="<?= $data['lastname'] ?? ''?>">
             <span class="error"><?= $errors['lastname'] ?? ''?></span>
 		</label>
+        <?php if(!empty($roles)) :?>
+            <label for="user-role">User Role
+                <select name="user-role" id="user-role">
+					        <?php foreach ( $roles as $role ) : ?>
+                      <option value="<?= Renderer::e($role['name']) ?>"><?= Renderer::e($role['name']) ?></option>
+					        <?php endforeach; ?>
+                </select>
+            </label>
+        <?php endif; ?>
         <label for="lastname">Date of birth:
             <input type="date" id="birthdate" name="birthdate" value="<?= $data['birthdate'] ?? ''?>">
             <span class="error"><?= $errors['birthdate'] ?? ''?></span>

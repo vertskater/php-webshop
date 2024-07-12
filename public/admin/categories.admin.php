@@ -3,6 +3,10 @@
 require  dirname(__DIR__, 2) . '/src/bootstrap.php';
 use Cm\Shop\Helper\Renderer;
 
+if($shop->getSession()->role !== 'admin' or empty($shop->getSession()->role)) {
+	Renderer::redirect('../../index.php');
+}
+
 $categories = $shop->getCategories()->getAll();
 $title = 'Dashboard - Categories';
 

@@ -8,6 +8,12 @@ $title = "New Account";
 $navigation = $shop->getCategories()->getNavigation();
 $errors = [];
 $form_data = [];
+$roles = [];
+$user_role = Config::DEFAULT_USER_ROLE;
+
+if($shop->getSession()->role === 'admin') {
+	$roles = $shop->getRoles()->fetchAllRoles();
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$form_data['gender'] = filter_input(INPUT_POST, 'gender');
@@ -23,6 +29,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$form_data['profile_pic_id'] = $shop->getImages()->getProfilePicId(Config::PROFILE_IMAGE_PLACEHOLDER);
 	}
 
+	if($shop->getSession()->role === 'admin') {
+		$user_role = filter_input(INPUT_POST, 'user-role');
+	}
+
+
 	$errors['password_match'] = filter_input(INPUT_POST, 'password') === filter_input(INPUT_POST, 'password-confirm') ? '' : 'Passwords do not match';
 	$errors['password'] = Validate::validatePassword($form_data['password']) ? '' : 'Password need to have min 8 charakters, and include Upper-, Lower-Case and special chars.';
 	$errors['email'] = $form_data['email'] ? '' : 'E-Mail-Address not valid';
@@ -31,11 +42,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$errors['lastname'] = Validate::validate_is_string($form_data['lastname'], 3, 50) ? '' : 'Lastname need to have min 3 and max 50 chars';
 	$errors['email_exists'] = $shop->getUsers()->emailExists($form_data['email']) ? 'E-Mail-Address already exists' : '';
 	$errors['gender'] = Validate::validate_gender($form_data['gender']) ? '' : 'Please fill in a valid gender';
-
+	//If Admin
 	$valid = implode($errors);
 	if(!$valid) {
-		$form_data['role_id'] = $shop->getRoles()->getRoleId(Config::DEFAULT_USER_ROLE);
+		$form_data['role_id'] = $shop->getRoles()->getRoleId($user_role);
 		$shop->getUsers()->registerUser($form_data);
+		if($shop->getSession()->role === 'admin') {
+			$shop->getSession()->destroySession();
+		}
 		Renderer::redirect('/login.php', ['success' => 1]);
 	}
  }
@@ -45,6 +59,7 @@ Renderer::render(ROOT_PATH . '/public/views/register.view.php', [
 	'navigation' => $navigation,
 	'count' => $count,
 	'errors' => $errors,
-	'data' => $form_data
+	'data' => $form_data,
+	'roles' => $roles
 ]);
 

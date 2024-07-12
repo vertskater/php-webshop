@@ -2,6 +2,10 @@
 require  dirname(__DIR__, 2) . '/src/bootstrap.php';
 use Cm\Shop\Helper\Renderer;
 
+if($shop->getSession()->role !== 'admin' or empty($shop->getSession()->role)) {
+	Renderer::redirect('../../index.php');
+}
+
 $cat_id = filter_input(INPUT_GET, 'cat_id', FILTER_VALIDATE_INT);
 if(!$cat_id) {
 	Renderer::redirect('/admin/admin.php');

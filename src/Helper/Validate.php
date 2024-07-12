@@ -23,7 +23,8 @@ class Validate {
 	 public static function validate_is_int(int $num, int $min = 0, int $max = PHP_INT_MAX): bool {
 		return $num >= $min and $num <= $max;
 	 }
-	 public static function validate_gender(string $gender): bool {
+	 public static function validate_gender(?string $gender): bool {
+		 if(!isset($gender)) return false;
 		 return in_array($gender, Config::GENDER);
 	 }
 

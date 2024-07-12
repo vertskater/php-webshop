@@ -11,7 +11,7 @@ class Database extends PDO {
 		parent::__construct($dsn, $user, $password, array_replace($default, $options));
 	}
 
-	public function sql_execute(string $sql, array $bindings = []): \PDOStatement {
+	public function sql_execute(string $sql, array $bindings = []): \PDOStatement|false {
 		if(empty($bindings)) {
 			return $this->query($sql);
 		}
@@ -26,7 +26,7 @@ class Database extends PDO {
 		try {
 			$stmt->execute();
 		}catch (\PDOException $e) {
-			echo $e->getMessage();
+			return false;
 		}
 		return $stmt;
 	}

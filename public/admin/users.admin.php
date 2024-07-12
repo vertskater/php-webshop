@@ -3,6 +3,10 @@
 require  dirname(__DIR__, 2) . '/src/bootstrap.php';
 use Cm\Shop\Helper\Renderer;
 
+if($shop->getSession()->role !== 'admin' or empty($shop->getSession()->role)) {
+	Renderer::redirect('../../index.php');
+}
+
 $title = 'Dashboard - Users';
 $role_id = filter_input(INPUT_GET, 'role_id') ? $_GET['role_id'] : '';
 $users = $shop->getUsers()->fetchAllUsers();

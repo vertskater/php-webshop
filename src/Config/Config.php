@@ -25,7 +25,6 @@ class Config {
 	const string PROFILE_IMAGE_PLACEHOLDER = 'profile_placeholder.png';
 	const string PROFILE_IMG_ALT_TEXT = 'profile image';
 
-
 	public function __construct() {
 		define('ROOT_PATH', dirname(__DIR__, 2));
 		define('UPLOAD_DIR', dirname(__DIR__, 2) . '/public/img/');

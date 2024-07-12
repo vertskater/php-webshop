@@ -35,7 +35,7 @@ class User {
 		}
 	}
 	public function fetchUserById(string|int $id): array|false {
-		$sql = "SELECT u.id, CONCAT(u.firstname, ' ', u.lastname) as username, u.email, 
+		$sql = "SELECT u.id, u.firstname, u.lastname, CONCAT(u.firstname, ' ', u.lastname) as username, u.email, 
        			u.birthdate, u.gender, r.name as role,
        			i.filename as image_name, i.alt as image_alt
 						FROM users as u
@@ -101,5 +101,9 @@ class User {
 	public function changeRole(int|string $user_id, int|string $new_role): void {
 		$sql = "UPDATE users SET role_id = :new_role WHERE id = :user_id";
 		$this->db->sql_execute($sql, ['new_role' => $new_role, 'user_id' => $user_id]);
+	}
+	public function deleteUser(string|int $user_id): false|\PDOStatement {
+		$sql = "DELETE FROM users WHERE id = :user_id";
+		return $this->db->sql_execute($sql, ['user_id' => $user_id]);
 	}
 }

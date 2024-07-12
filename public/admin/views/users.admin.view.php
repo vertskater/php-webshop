@@ -18,12 +18,11 @@
                 <th>Birthdate</th>
                 <th>Role</th>
                 <th>Profile Image</th>
-                <th>Edit</th>
             </tr>
             </thead>
                     <?php foreach($users as $user) : ?>
               <tr>
-                  <td><a href="#" class="delete-product">X</a> </td>
+                  <td><a href="delete-user.php?user_id=<?= Renderer::e($user['id']); ?>" class="delete-product">X</a> </td>
                   <td><?= Renderer::e($user['name'])?></td>
                   <td><?= Renderer::e($user['email'])?></td>
                   <td><?= Renderer::formatDate(Renderer::e($user['birthdate']))?></td>
@@ -39,10 +38,12 @@
                       </form>
                   </td>
                   <td class="user-img"><img src="/img/<?= Renderer::e($user['filename'])?>" alt="<?=Renderer::e($user['alt']) ?>"></td>
-                  <td class="edit-product"><a href="/public/admin/edit-user.php?prod_id=<?= $user['id']?>">Edit</a> </td>
               </tr>
-					<?php endforeach; ?>
+                    <?php endforeach; ?>
         </table>
+        <div class="add-new">
+            <a role="button" href="./new-user.php">Add new User</a>
+        </div>
     </div>
     </section>
 </main>
