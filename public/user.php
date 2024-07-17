@@ -19,7 +19,7 @@ $tmp_path = $_FILES['image']['tmp_name'] ?? null;
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if(!empty($_FILES['image'])) {
 		$profile_img = $_FILES['image'];
-		$errors['image'] = $profile_img['error'] === 1 ? 'Image size too big, ' : '';
+		$errors['image'] = $profile_img['error'] === UPLOAD_ERR_INI_SIZE ? 'Image size too big, ' : '';
 		if($tmp_path and $profile_img['error'] == UPLOAD_ERR_OK) {
 			$type            = mime_content_type( $tmp_path );
 			$errors['image'] .= in_array( $type, Config::MEDIA_TYPES ) ? '' : 'Image filetype not allowed, ';

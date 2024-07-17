@@ -49,22 +49,28 @@ class Helper {
 	}
 
 	public static function scale_and_copy( string $filename, string $save_to, $max_width = 1024, $max_height = 1024 ): bool {
+		$width = $max_width;
+		$height = $max_height;
+
 		// Get new sizes
 		[ $orig_width, $orig_height, $mime_type ] = getimagesize( $filename );
 		if ( $orig_width === null || $orig_height === null ) {
 			return false;
 		}
-
+		$ratio = $orig_width / $orig_height;
+		if ( $width / $height > $ratio ) {
+			$width = (int) round( $height * $ratio );
+		} else {
+			$height = (int) round( $width / $ratio );
+		}
 		$source = match ( $mime_type ) {
 			IMAGETYPE_JPEG => imagecreatefromjpeg( $filename ),
 			IMAGETYPE_PNG => imagecreatefrompng( $filename ),
 			default => false,
 		};
-
-		$size = min(imagesx($source), imagesy($source));
-		$thumb = imagecreatetruecolor( $size, $size );
+		$thumb = imagecreatetruecolor( $width, $height);
 		// Resize
-		imagecopyresampled( $thumb, $source, 0, 0, 0, 0, $size, $size, $max_width, $max_height );
+		imagecopyresampled( $thumb, $source, 0, 0, 0, 0, $width, $height, $orig_width, $orig_height );
 		// Output
 		match ( $mime_type ) {
 			IMAGETYPE_JPEG => imagejpeg( $thumb, $save_to ),

@@ -23,6 +23,7 @@ class Database extends PDO {
 				$stmt->bindValue($key, $value);
 			}
 		}
+
 		try {
 			$stmt->execute();
 		}catch (\PDOException $e) {

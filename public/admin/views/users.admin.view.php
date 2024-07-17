@@ -8,7 +8,7 @@
             <?php endforeach; ?>
         </ul>
     </aside>
-    <div>
+    <div class="table-container">
         <table class="striped cart-price">
             <thead>
             <tr>
@@ -41,9 +41,9 @@
               </tr>
                     <?php endforeach; ?>
         </table>
-        <div class="add-new">
-            <a role="button" href="./new-user.php">Add new User</a>
-        </div>
     </div>
     </section>
+    <div class="add-new">
+        <a role="button" href="./new-user.php">Add new User</a>
+    </div>
 </main>

@@ -4,7 +4,7 @@ use Cm\Shop\Helper\Renderer;
 use Cm\Shop\Helper\Validate;
 
 if($shop->getSession()->role !== 'admin' or empty($shop->getSession()->role)) {
-	Renderer::redirect('../../index.php');
+	Renderer::redirect('/index.php');
 }
 
 $cat_id = filter_input(INPUT_GET, 'cat_id', FILTER_VALIDATE_INT);

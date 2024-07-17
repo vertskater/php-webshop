@@ -1,5 +1,6 @@
 <?php use Cm\Shop\Helper\Renderer; ?>
 <main class="container container-padding full-height">
+    <div class="table-container">
 	<table class="striped cart-price">
 		<thead>
 		<tr>
@@ -20,6 +21,7 @@
 			</tr>
 		<?php endforeach; ?>
 	</table>
+    </div>
     <div class="add-new">
         <a role="button" href="./edit-category.php">Add new category</a>
     </div>

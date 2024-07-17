@@ -232,6 +232,9 @@ nav .nav-profile-img {
         color: var(--light);
     }
 }
+div.table-container{
+    overflow-x: auto;
+}
 
 table.cart-price {
     .delete-product a {

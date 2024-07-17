@@ -35,4 +35,12 @@ class Image {
 			return false;
 		}
 	}
+	public function deleteImage(int|string $image_id): bool {
+		$sql = "DELETE FROM images WHERE id = :image_id";
+		return (bool)$this->db->sql_execute($sql, ['image_id' => $image_id]);
+	}
+	public function getImageById(int|string $image_id): array {
+		$sql = "SELECT filename, alt FROM images WHERE id = :image_id";
+		return $this->db->sql_execute($sql, ['image_id' => $image_id])->fetch();
+	}
 }
