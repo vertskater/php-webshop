@@ -1,6 +1,6 @@
 vendor
 node_modules
-/src/img/
+/public/img/
 .vs-code
 .idea
 .DS_Store
