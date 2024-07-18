@@ -49,4 +49,13 @@
             </form>
         </section>
     </section>
+    <section>
+        <h3>Purchase History:</h3>
+        <hr/>
+        <?php
+        if(!empty($products)) {
+            include ROOT_PATH . '/public/views/products-list.view.php';
+        }
+        ?>
+    </section>
 </main>

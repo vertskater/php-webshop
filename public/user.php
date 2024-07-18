@@ -37,10 +37,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 }
 
+$last_purchased = $shop->getSoldProducts()->fetchSoldProducts($user_id);
+
 Renderer::render(ROOT_PATH . '/public/views/user.view.php', [
 	'title' => $title,
 	'navigation' => $navigation,
 	'count' => $count,
 	'user' => $user,
+	'products' => $last_purchased,
 	'upload_errors' => $errors
 ]);

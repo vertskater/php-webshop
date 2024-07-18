@@ -13,6 +13,7 @@ Dieses kleine Projekt zeigt einen Webshop ohne Chekout bzw. Bezahlsystem. Im Zen
 * PHP 8.3
 * MySQL
 * Composer Autoloader
+* Pico CSS
 
 ### Installing
 

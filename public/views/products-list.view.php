@@ -1,6 +1,9 @@
 <section class="grid product-container">
 	<?php foreach($products as $product) :?>
 		<div>
+            <?php if(!empty($product['date_sold'])) : ?>
+                <h5>Date of purchase: <?= \Cm\Shop\Helper\Renderer::formatDate($product['date_sold']) ?></h5>
+            <?php endif; ?>
 			<a class="product-link" href="/product.php?id=<?= \Cm\Shop\Helper\Renderer::e($product['id']) ?>">
 				<img src="../img/<?= \Cm\Shop\Helper\Renderer::e($product['image'])?>" alt="<?= \Cm\Shop\Helper\Renderer::e($product['image_alt']) ?>"/>
 				<h5><?= \Cm\Shop\Helper\Renderer::e($product['name']) ?></h5>

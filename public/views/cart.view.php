@@ -67,7 +67,7 @@
             </tr>
         </thead>
     </table>
-    <form class="checkout" action="#" method="post">
+    <form class="checkout" action="/checkout.php" method="post">
         <input type="submit" value="Checkout">
     </form>
     <?php endif; ?>

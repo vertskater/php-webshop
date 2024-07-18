@@ -11,6 +11,7 @@ class Shop {
 	protected Session $session;
   protected User $user;
 	protected UserRole $role;
+	protected SoldProducts $sold_products;
 
 	public function __construct(string $dsn, string $username, string $password) {
 		$this->db = new Database($dsn, $username, $password);
@@ -56,6 +57,12 @@ class Shop {
 			return new UserRole($this->db);
 		}
 		return $this->role;
+	}
+	public function getSoldProducts(): SoldProducts {
+		if(empty($this->sold_products)) {
+			return new SoldProducts($this->db);
+		}
+		return $this->sold_products;
 	}
 }
 
