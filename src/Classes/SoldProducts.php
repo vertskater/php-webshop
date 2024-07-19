@@ -19,7 +19,7 @@ class SoldProducts {
 						JOIN products as p ON p.id = s.product_id
        			JOIN categories as c on p.category_id = c.id    
         		LEFT JOIN images as i on p.image_id = i.id
-						WHERE s.user_id = :user_id LIMIT :limit";
+						WHERE s.user_id = :user_id ORDER BY date_sold DESC LIMIT :limit";
 		return $this->db->sql_execute($sql, ['user_id' => $user_id, 'limit' => $limit])->fetchAll();
 	}
 }
